@@ -1,7 +1,7 @@
 {
-  "name": "vexflow4",
-  "version": "4.2.5",
-  "description": "A JavaScript library for rendering music notation and guitar tablature.",
+  "name": "vexflow-kme",
+  "version": "0.0.1",
+  "description": "VexFlow with minor changes for my own app.",
   "exports": {
     ".": {
       "types": "./build/types/entry/vexflow.d.ts",
@@ -62,12 +62,7 @@
   "jsdelivr": "./build/cjs/vexflow.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/0xfe/vexflow.git"
-  },
-  "author": {
-    "name": "Mohit Muthanna Cheppudira",
-    "email": "mohit@muthanna.com",
-    "url": "https://muthanna.com/"
+    "url": "https://github.com/MGreek/vexflow-kme"
   },
   "license": "MIT",
   "files": [
@@ -82,9 +77,6 @@
     "releases/vexflow-debug.js",
     "AUTHORS.md"
   ],
-  "bugs": {
-    "url": "https://github.com/0xfe/vexflow/issues"
-  },
   "devDependencies": {
     "@types/qunit": "^2.19.5",
     "@types/node": "^18.16.3",
