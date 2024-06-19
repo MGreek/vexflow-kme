@@ -27,6 +27,7 @@ export class KeySignature extends StaveModifier {
   protected accList: { type: string; line: number }[] = [];
   protected keySpec?: string;
   protected alterKeySpec?: string[];
+  protected overrideClef?: string;
 
   // Space between natural and following accidental depending
   // on vertical position
@@ -90,7 +91,7 @@ export class KeySignature extends StaveModifier {
   };
 
   // Create a new Key Signature based on a `key_spec`
-  constructor(keySpec: string, cancelKeySpec?: string, alterKeySpec?: string[]) {
+  constructor(keySpec: string, cancelKeySpec?: string, alterKeySpec?: string[], overrideClef?: string) {
     super();
 
     this.setKeySig(keySpec, cancelKeySpec, alterKeySpec);
@@ -99,6 +100,7 @@ export class KeySignature extends StaveModifier {
     this.glyphs = [];
     this.xPositions = []; // relative to this.x
     this.paddingForced = false;
+    this.overrideClef = overrideClef;
   }
 
   // Add an accidental glyph to the `KeySignature` instance which represents
@@ -290,7 +292,8 @@ export class KeySignature extends StaveModifier {
 
     if (this.accList.length > 0) {
       const clef =
-        (this.position === StaveModifierPosition.END ? stave.getEndClef() : stave.getClef()) || stave.getClef();
+        this.overrideClef ??
+        ((this.position === StaveModifierPosition.END ? stave.getEndClef() : stave.getClef()) || stave.getClef());
       if (cancelAccList) {
         this.convertAccLines(clef, cancelAccList.type, cancelAccList.accList);
       }
