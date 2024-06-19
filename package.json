@@ -1,6 +1,6 @@
 {
   "name": "vexflow-kme",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "VexFlow with minor changes for my own app.",
   "exports": {
     ".": {
