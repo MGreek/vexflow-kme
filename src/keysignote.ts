@@ -13,10 +13,10 @@ export class KeySigNote extends Note {
 
   protected keySignature: KeySignature;
 
-  constructor(keySpec: string, cancelKeySpec?: string, alterKeySpec?: string[]) {
+  constructor(keySpec: string, cancelKeySpec?: string, alterKeySpec?: string[], overrideClef?: string) {
     super({ duration: 'b' });
 
-    this.keySignature = new KeySignature(keySpec, cancelKeySpec, alterKeySpec);
+    this.keySignature = new KeySignature(keySpec, cancelKeySpec, alterKeySpec, overrideClef);
 
     // Note properties
     this.ignore_ticks = true;
