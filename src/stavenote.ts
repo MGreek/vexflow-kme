@@ -217,14 +217,14 @@ export class StaveNote extends StemmableNote {
       const lineSpacing =
         noteU.note.hasStem() && noteL.note.hasStem() && noteU.stemDirection === noteL.stemDirection ? 0.0 : 0.5;
       if (noteL.isrest && noteU.isrest && noteU.note.duration === noteL.note.duration) {
-        noteL.note.render_options.draw = false;
+        // noteL.note.render_options.draw = false;
       } else if (noteU.minLine <= noteL.maxLine + lineSpacing) {
         if (noteU.isrest) {
           // shift rest up
-          shiftRestVertical(noteU, noteL, 1);
+          // shiftRestVertical(noteU, noteL, 1);
         } else if (noteL.isrest) {
           // shift rest down
-          shiftRestVertical(noteL, noteU, -1);
+          // shiftRestVertical(noteL, noteU, -1);
         } else {
           //Instead of shifting notes, remove the appropriate flag
           //If we are sharing a line, switch one notes stem direction.
@@ -247,8 +247,8 @@ export class StaveNote extends StemmableNote {
               // If we have different dot values, shift
               noteU.note.getModifiers().filter((item) => item.getCategory() === Category.Dot && item.getIndex() === 0)
                 .length !==
-                noteL.note.getModifiers().filter((item) => item.getCategory() === Category.Dot && item.getIndex() === 0)
-                  .length ||
+              noteL.note.getModifiers().filter((item) => item.getCategory() === Category.Dot && item.getIndex() === 0)
+                .length ||
               // If the notes are quite close but not on the same line, shift
               (lineDiff < 1 && lineDiff > 0) ||
               // If styles are different, shift
@@ -271,8 +271,8 @@ export class StaveNote extends StemmableNote {
                 } else {
                   //same line, swap stem direction for one note
                   if (noteL.stemDirection === 1) {
-                    noteL.stemDirection = -1;
-                    noteL.note.setStemDirection(-1);
+                    // noteL.stemDirection = -1;
+                    // noteL.note.setStemDirection(-1);
                   }
                 }
               }
@@ -287,11 +287,11 @@ export class StaveNote extends StemmableNote {
               noteL.note.setXShift(xShift);
             }
           } else if (noteU.note.hasStem()) {
-            noteU.stemDirection = -noteU.note.getStemDirection();
-            noteU.note.setStemDirection(noteU.stemDirection);
+            // noteU.stemDirection = -noteU.note.getStemDirection();
+            // noteU.note.setStemDirection(noteU.stemDirection);
           } else if (noteL.note.hasStem()) {
-            noteL.stemDirection = -noteL.note.getStemDirection();
-            noteL.note.setStemDirection(noteL.stemDirection);
+            // noteL.stemDirection = -noteL.note.getStemDirection();
+            // noteL.note.setStemDirection(noteL.stemDirection);
           }
         }
       }
@@ -313,17 +313,17 @@ export class StaveNote extends StemmableNote {
         const space = noteU.minLine - noteL.maxLine;
         if (restHeight < space) {
           // center middle voice rest between the upper and lower voices
-          centerRest(noteM, noteU, noteL);
+          // centerRest(noteM, noteU, noteL);
         } else {
           xShift = voiceXShift + 2; // shift middle rest right
           noteM.note.setXShift(xShift);
           if (noteL.note.hasBeam() === false) {
-            noteL.stemDirection = -1;
-            noteL.note.setStemDirection(-1);
+            // noteL.stemDirection = -1;
+            // noteL.note.setStemDirection(-1);
           }
           if (noteU.minLine <= noteL.maxLine && noteU.note.hasBeam() === false) {
-            noteU.stemDirection = 1;
-            noteU.note.setStemDirection(1);
+            // noteU.stemDirection = 1;
+            // noteU.note.setStemDirection(1);
           }
         }
         // format complete
@@ -335,9 +335,9 @@ export class StaveNote extends StemmableNote {
     // Special case 2 :: all voices are rests
     if (noteU.isrest && noteM.isrest && noteL.isrest) {
       // Hide upper voice rest
-      noteU.note.render_options.draw = false;
+      // noteU.note.render_options.draw = false;
       // Hide lower voice rest
-      noteL.note.render_options.draw = false;
+      // noteL.note.render_options.draw = false;
       // format complete
       state.right_shift += xShift;
       return true;
@@ -346,19 +346,19 @@ export class StaveNote extends StemmableNote {
     // Test if any other rests can be repositioned
     if (noteM.isrest && noteU.isrest && noteM.minLine <= noteL.maxLine) {
       // Hide middle voice rest
-      noteM.note.render_options.draw = false;
+      // noteM.note.render_options.draw = false;
     }
     if (noteM.isrest && noteL.isrest && noteU.minLine <= noteM.maxLine) {
       // Hide middle voice rest
-      noteM.note.render_options.draw = false;
+      // noteM.note.render_options.draw = false;
     }
     if (noteU.isrest && noteU.minLine <= noteM.maxLine) {
       // shift upper voice rest up;
-      shiftRestVertical(noteU, noteM, 1);
+      // shiftRestVertical(noteU, noteM, 1);
     }
     if (noteL.isrest && noteM.minLine <= noteL.maxLine) {
       // shift lower voice rest down
-      shiftRestVertical(noteL, noteM, -1);
+      // shiftRestVertical(noteL, noteM, -1);
     }
     // If middle voice intersects upper or lower voice
     if (noteU.minLine <= noteM.maxLine + 0.5 || noteM.minLine <= noteL.maxLine) {
@@ -366,12 +366,12 @@ export class StaveNote extends StemmableNote {
       xShift = voiceXShift + 2;
       noteM.note.setXShift(xShift);
       if (noteL.note.hasBeam() === false) {
-        noteL.stemDirection = -1;
-        noteL.note.setStemDirection(-1);
+        // noteL.stemDirection = -1;
+        // noteL.note.setStemDirection(-1);
       }
       if (noteU.minLine <= noteL.maxLine && noteU.note.hasBeam() === false) {
-        noteU.stemDirection = 1;
-        noteU.note.setStemDirection(1);
+        // noteU.stemDirection = 1;
+        // noteU.note.setStemDirection(1);
       }
     }
 
@@ -1141,17 +1141,17 @@ export class StaveNote extends StemmableNote {
       const flagY =
         this.getStemDirection() === Stem.DOWN
           ? // Down stems are below the note head and have flags on the right.
-            y_top -
-            noteStemHeight +
-            2 -
-            (this.glyphProps ? this.glyphProps.stem_down_extension : 0) * this.getStaveNoteScale() -
-            (this.flag?.getMetrics().y_shift ?? 0) * (1 - this.getStaveNoteScale())
+          y_top -
+          noteStemHeight +
+          2 -
+          (this.glyphProps ? this.glyphProps.stem_down_extension : 0) * this.getStaveNoteScale() -
+          (this.flag?.getMetrics().y_shift ?? 0) * (1 - this.getStaveNoteScale())
           : // Up stems are above the note head and have flags on the right.
-            y_bottom -
-            noteStemHeight -
-            2 +
-            (this.glyphProps ? this.glyphProps.stem_up_extension : 0) * this.getStaveNoteScale() -
-            (this.flag?.getMetrics().y_shift ?? 0) * (1 - this.getStaveNoteScale());
+          y_bottom -
+          noteStemHeight -
+          2 +
+          (this.glyphProps ? this.glyphProps.stem_up_extension : 0) * this.getStaveNoteScale() -
+          (this.flag?.getMetrics().y_shift ?? 0) * (1 - this.getStaveNoteScale());
 
       // Draw the Flag
       this.flag?.render(ctx, flagX, flagY);
